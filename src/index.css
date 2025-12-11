@@ -1,0 +1,72 @@
+:root{
+  --bg: #0d0d0d;
+  --card: #121212;
+  --text: #ffffff;
+  --muted: #bdbdbd;
+  --accent: #004F9F;
+  --accent2: #F4A66A;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Cairo', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+h1, h2, h3 {
+  color: var(--text);
+}
+
+.tab {
+  display: inline-block;
+  padding: 8px 12px;
+  margin-right: 6px;
+  background: var(--card);
+  color: var(--muted);
+  border-radius: 8px;
+}
+
+.tab.active {
+  background: var(--accent);
+  color: var(--text);
+}
+
+.cell-input {
+  width: 100%;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 6px;
+}
+
+.splash-root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  transition: opacity .8s ease;
+}
+
+.splash-logo {
+  width: 220px;
+  margin-bottom: 18px;
+}
+
+.splash-sub {
+  color: #cccccc;
+  font-size: 14px;
+}
+
+.splash-root.fade-out {
+  opacity: 0;
+}
