@@ -1,0 +1,6 @@
+{
+  "appId": "com.fawzy.qaflat",
+  "appName": "قافلة التيسير",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}
