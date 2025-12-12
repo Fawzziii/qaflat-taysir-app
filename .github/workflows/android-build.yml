@@ -26,7 +26,7 @@ jobs:
       - name: Install Capacitor + Android platform
         run: |
           npm install @capacitor/cli @capacitor/core
-          npm install @capacitor/android
+          npm install @capacitor/android@5
           npx cap sync android
 
       - name: Add Android platform if missing
