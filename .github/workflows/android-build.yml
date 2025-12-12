@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
 
 env:
-  ANDROID_SDK_ROOT: ${{ runner.tool_cache }}/android-sdk
+  ANDROID_SDK_ROOT: /usr/local/lib/android
 
 jobs:
   build:
@@ -31,12 +31,15 @@ jobs:
           sudo mkdir -p $ANDROID_SDK_ROOT
           sudo chown $USER:$USER $ANDROID_SDK_ROOT
           cd $ANDROID_SDK_ROOT
-          wget https://dl.google.com/android/repository/commandlinetools-linux-11498972_latest.zip -O cmdline.zip
+          wget https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip -O cmdline.zip
           unzip -q cmdline.zip -d cmdline-tools
           mkdir -p cmdline-tools/latest
           mv cmdline-tools/cmdline-tools/* cmdline-tools/latest/
           yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --licenses
-          $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.2"
+          $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager \
+            "platform-tools" \
+            "platforms;android-33" \
+            "build-tools;33.0.2"
         shell: bash
 
       - name: Install dependencies (npm)
@@ -49,27 +52,22 @@ jobs:
         run: |
           npm install @capacitor/cli @capacitor/core
           npm install @capacitor/android@5
-        shell: bash
 
       - name: Add Android platform if missing and sync
         run: |
-          # ensure android platform exists, else add it
           if [ ! -d "android" ]; then
             npx cap add android
           fi
           npx cap sync android
-        shell: bash
 
       - name: Copy web build to android app directory
         run: npx cap copy android
-        shell: bash
 
       - name: Build APK with Gradle
         run: |
           cd android
           chmod +x ./gradlew
           ./gradlew assembleDebug
-        shell: bash
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
